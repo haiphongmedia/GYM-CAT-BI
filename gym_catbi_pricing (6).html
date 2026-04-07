@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bảng Giá – GYM CÁT BI</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f6ff;--blue:#1a6fc4;--blue-mid:#2882db;--blue-deep:#0f4f96;
+  --blue-light:#ddeeff;--blue-pale:#eaf3fd;--sky-light:#cce5ff;
+  --teal:#0fa89a;--teal-light:#e0f7f5;--orange:#e07010;
+  --orange-bg:#fff4e6;--orange-border:#ffc87a;
+  --surface:#fff;--text:#0f2540;--text2:#3a5878;--text3:#7a9ab8;
+  --border:#cce0f5;
+  --sh:0 2px 18px rgba(26,111,196,.10);
+  --sh-md:0 6px 32px rgba(26,111,196,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0d3f7a 0%,#1a6fc4 45%,#2893e8 100%);padding:48px 24px 72px;position:relative;overflow:hidden;text-align:center;}
+.hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:60px;background:var(--bg);clip-path:polygon(0 100%,100% 100%,100% 0);}
+.hi{position:relative;z-index:1;max-width:820px;margin:0 auto;}
+.hero-icon-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;}
+.hico{display:flex;align-items:center;justify-content:center;width:52px;height:52px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:14px;}
+.hico svg{width:26px;height:26px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.hdiv{width:2px;height:28px;background:rgba(255,255,255,.2);border-radius:2px;}
+.hero-brand{font-family:'Lexend',sans-serif;font-size:clamp(28px,7vw,48px);font-weight:900;color:#fff;letter-spacing:4px;margin-bottom:8px;text-shadow:0 2px 16px rgba(0,0,0,.25);}
+.hero-brand span{color:#ffd166;}
+.hero h1{font-family:'Lexend',sans-serif;font-size:clamp(17px,4vw,32px);font-weight:700;color:rgba(255,255,255,.92);line-height:1.1;margin-bottom:12px;white-space:nowrap;}
+.hero h1 em{font-style:normal;color:#a8d4ff;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.72);margin-bottom:20px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);color:#fff;font-size:12px;padding:8px 20px;border-radius:99px;font-weight:600;}
+.hero-badge svg{width:14px;height:14px;stroke:#a8d4ff;stroke-width:2.3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* LAYOUT */
+.content{max-width:920px;margin:0 auto;padding:44px 16px 80px;}
+.mb{margin-bottom:48px;}
+
+/* SECTION HEADER */
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.sp{display:flex;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:9px 16px 9px 12px;border-radius:99px;flex-shrink:0;}
+.sp.red{background:linear-gradient(135deg,#b81c1c,#e84040);}
+.sp svg{width:16px;height:16px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.sp-lbl{font-family:'Lexend',sans-serif;font-size:12px;font-weight:700;white-space:nowrap;}
+.sl{flex:1;height:1.5px;background:linear-gradient(to right,var(--border),transparent);}
+.sbadge{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);background:var(--blue-light);border:1px solid var(--border);padding:4px 12px;border-radius:99px;font-weight:700;font-family:'Lexend',sans-serif;}
+
+/* MEMBERSHIP CARDS */
+.mem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:48px;}
+@media(max-width:660px){.mem-grid{grid-template-columns:1fr;}}
+
+/* KEY FIX: <button> reset hoàn toàn */
+button.mcard{
+  -webkit-appearance:none;appearance:none;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:18px;overflow:hidden;box-shadow:var(--sh);
+  width:100%;padding:0;cursor:pointer;text-align:left;
+  display:block;font-family:inherit;
+}
+button.mcard.feat{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,111,196,.12),var(--sh-md);transform:translateY(-5px);}
+button.mcard.grn{border-color:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.10),var(--sh-md);transform:translateY(-3px);}
+.mct{padding:22px 18px 18px;text-align:center;position:relative;}
+button.mcard:not(.feat):not(.grn) .mct{background:var(--blue-pale);}
+button.mcard.feat .mct{background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid));}
+button.mcard.grn .mct{background:linear-gradient(135deg,#064e1e,#16a34a);}
+.mflbl{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:0 0 9px 9px;font-weight:700;font-family:'Lexend',sans-serif;}
+.mico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;margin-bottom:10px;}
+button.mcard:not(.feat):not(.grn) .mico{background:var(--blue-light);}
+button.mcard.feat .mico,button.mcard.grn .mico{background:rgba(255,255,255,.18);}
+.mico svg{width:22px;height:22px;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+button.mcard:not(.feat):not(.grn) .mico svg{stroke:var(--blue);}
+button.mcard.feat .mico svg,button.mcard.grn .mico svg{stroke:#fff;}
+.mtier{font-family:'Lexend',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;margin-bottom:8px;line-height:1.4;}
+button.mcard:not(.feat):not(.grn) .mtier{color:var(--blue);}
+button.mcard.feat .mtier,button.mcard.grn .mtier{color:rgba(255,255,255,.85);}
+.mpr{display:flex;align-items:baseline;justify-content:center;gap:4px;margin-bottom:5px;}
+.mprice{font-family:'Lexend',sans-serif;font-size:34px;font-weight:900;letter-spacing:-1.5px;line-height:1;}
+button.mcard:not(.feat):not(.grn) .mprice{color:var(--text);}
+button.mcard.feat .mprice,button.mcard.grn .mprice{color:#fff;}
+.mslash{font-family:'Lexend',sans-serif;font-size:12px;font-weight:600;}
+button.mcard:not(.feat):not(.grn) .mslash{color:var(--text3);}
+button.mcard.feat .mslash,button.mcard.grn .mslash{color:rgba(255,255,255,.65);}
+.mtotal{display:inline-block;font-family:'Lexend',sans-serif;font-size:11px;font-weight:700;padding:3px 11px;border-radius:99px;margin-top:2px;}
+button.mcard:not(.feat):not(.grn) .mtotal{background:var(--blue-light);color:var(--blue-deep);border:1px solid var(--sky-light);}
+button.mcard.feat .mtotal,button.mcard.grn .mtotal{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.25);}
+.mcb{padding:18px 18px 20px;}
+.mf{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid #f0f6ff;font-size:13px;color:var(--text2);}
+.mf:last-child{border-bottom:none;}
+.mfi{display:flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--blue-light);border-radius:5px;flex-shrink:0;margin-top:1px;}
+button.mcard.grn .mfi{background:#dcfce7;}
+.mfi svg{width:11px;height:11px;stroke:var(--blue);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+button.mcard.grn .mfi svg{stroke:#16a34a;}
+
+/* TABLE */
+.twrap{background:var(--surface);border-radius:16px;overflow:hidden;border:1.5px solid var(--border);box-shadow:var(--sh);margin-bottom:48px;}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.pt{width:100%;border-collapse:collapse;min-width:500px;}
+.pt thead tr{background:linear-gradient(to right,#e4f0fc,#f2f8ff);border-bottom:2px solid var(--border);}
+.pt th{padding:12px 16px;text-align:left;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);font-weight:700;font-family:'Lexend',sans-serif;white-space:nowrap;}
+.pt th:nth-child(n+3),.pt td:nth-child(n+3){text-align:right;}
+.pt td{padding:12px 16px;font-size:13px;border-bottom:1px solid #eef4fc;color:var(--text2);vertical-align:middle;white-space:nowrap;}
+.pt tbody tr:last-child td{border-bottom:none;}
+.pt tbody tr.hot{background:#fffbf5;}
+.pt tbody tr.hot td:first-child{border-left:3px solid var(--orange);padding-left:13px;}
+.pt tbody tr.best{background:#f2f8ff;}
+.pt tbody tr.best td:first-child{border-left:3px solid var(--blue);padding-left:13px;}
+.pkn{display:inline-flex;align-items:center;gap:6px;font-family:'Lexend',sans-serif;font-weight:700;font-size:13px;background:var(--blue-light);color:var(--blue-deep);padding:4px 11px;border-radius:99px;white-space:nowrap;border:1px solid var(--sky-light);}
+.pv{font-family:'Lexend',sans-serif;font-size:15px;font-weight:800;color:var(--blue-deep);letter-spacing:-0.5px;}
+.nt{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;white-space:nowrap;}
+.nt.mu{color:var(--text3);}
+.nt.gr{color:var(--teal);}
+.nt svg{width:11px;height:11px;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.nt.mu svg{stroke:var(--text3);}
+.nt.gr svg{stroke:var(--teal);}
+.rb{display:inline-flex;align-items:center;gap:3px;font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:99px;font-weight:700;font-family:'Lexend',sans-serif;}
+.rb.hot{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border);}
+.rb.hot svg{width:9px;height:9px;stroke:var(--orange);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.rb.best{background:var(--blue-light);color:var(--blue-deep);border:1px solid var(--sky-light);}
+.rb.best svg{width:9px;height:9px;stroke:var(--blue-deep);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* PT */
+.ptg{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:580px){.ptg{grid-template-columns:1fr;}}
+.ptcard{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--sh);}
+.pth{background:linear-gradient(135deg,#8b0000,#c0392b,#e84040);padding:18px 20px;display:flex;align-items:center;gap:12px;}
+.pthi{display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:10px;flex-shrink:0;}
+.pthi svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.pttl{font-family:'Lexend',sans-serif;font-size:14px;font-weight:700;color:#fff;}
+.ptst{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px;}
+.ptr{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;border-bottom:1px solid #eef4fc;}
+.ptr:last-child{border-bottom:none;}
+.pts{font-family:'Lexend',sans-serif;font-weight:700;color:var(--text);font-size:14px;}
+.ptsc{font-size:11px;color:var(--text3);margin-top:2px;display:flex;align-items:center;gap:4px;}
+.ptsc svg{width:10px;height:10px;stroke:var(--text3);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.ptpc{text-align:right;}
+.ptpv{font-family:'Lexend',sans-serif;font-size:17px;font-weight:800;color:var(--blue-deep);letter-spacing:-0.5px;}
+.ptpp{font-size:11px;color:var(--text3);margin-top:2px;}
+
+/* GOALS — <button> thực sự */
+.gg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+@media(max-width:480px){.gg{grid-template-columns:1fr;}}
+button.gb{
+  -webkit-appearance:none;appearance:none;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:13px;padding:16px 18px;
+  display:flex;align-items:center;gap:14px;
+  box-shadow:var(--sh);width:100%;cursor:pointer;text-align:left;
+  font-family:inherit;
+  -webkit-tap-highlight-color:rgba(232,64,64,.15);
+}
+button.gb:active{background:#fff5f5;border-color:#e84040;}
+.gico{width:42px;height:42px;background:linear-gradient(135deg,#fce8e8,#ffe0e0);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.gico svg{width:20px;height:20px;stroke:#c0392b;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.glbl{font-family:'Lexend',sans-serif;font-size:13px;font-weight:600;color:var(--text);line-height:1.4;}
+.garr{margin-left:auto;flex-shrink:0;}
+.garr svg{width:15px;height:15px;stroke:var(--text3);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* REQ NOTE */
+.req{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:12px;color:var(--teal);font-weight:500;padding:10px 16px;background:var(--teal-light);border-left:3px solid var(--teal);border-radius:0 9px 9px 0;}
+.req svg{width:15px;height:15px;stroke:var(--teal);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+
+/* ══════════════════════════════════════
+   POPUP — QUAN TRỌNG:
+   Dùng visibility+opacity thay vì display:none
+   vì iOS Safari xử lý visibility tốt hơn display
+   khi mở file local
+══════════════════════════════════════ */
+.ov{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  z-index:9999;
+  background:rgba(10,30,60,.62);
+  display:flex;                        /* LUÔN flex, không toggle display */
+  align-items:center;justify-content:center;
+  padding:20px;
+  visibility:hidden;                   /* ẩn bằng visibility */
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s,visibility .25s;
+  -webkit-transition:opacity .25s,visibility .25s;
+}
+/* Khi mở: chỉ thêm class "on" */
+.ov.on{
+  visibility:visible;
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* MOTIV popup */
+.mpop{max-width:360px;width:100%;border-radius:22px;overflow:hidden;box-shadow:0 28px 70px rgba(0,0,0,.35);transform:translateY(20px);transition:transform .3s;-webkit-transition:transform .3s;}
+.ov.on .mpop{transform:translateY(0);}
+.mpbg{padding:34px 26px 28px;text-align:center;}
+.mpbg.bl{background:linear-gradient(145deg,#0d3f7a,#1a6fc4,#2893e8);}
+.mpbg.or{background:linear-gradient(145deg,#7a3500,#e07010,#f59235);}
+.mpbg.gn{background:linear-gradient(145deg,#064e1e,#16a34a,#22c55e);}
+.msp{font-size:38px;margin-bottom:14px;display:block;}
+.mplbl{font-family:'Lexend',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px;}
+.mli{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.mli li{font-family:'Lexend',sans-serif;font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.mli li:first-child{font-size:17px;}
+button.mcb{
+  -webkit-appearance:none;appearance:none;
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);
+  color:#fff;font-family:'Lexend',sans-serif;font-size:12px;font-weight:700;
+  padding:9px 22px;border-radius:99px;cursor:pointer;
+  -webkit-tap-highlight-color:rgba(255,255,255,.2);
+}
+button.mcb svg{width:13px;height:13px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* GOAL modal */
+.gmod{background:#fff;border-radius:20px;max-width:460px;width:100%;max-height:82vh;overflow-y:auto;box-shadow:0 22px 60px rgba(0,0,0,.28);transform:translateY(20px);transition:transform .3s;-webkit-transition:transform .3s;}
+.ov.on .gmod{transform:translateY(0);}
+.gmh{background:linear-gradient(135deg,#8b0000,#c0392b,#e84040);padding:22px 24px 18px;display:flex;align-items:flex-start;gap:12px;border-radius:20px 20px 0 0;}
+.gmhi{width:42px;height:42px;background:rgba(255,255,255,.18);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.gmhi svg{width:21px;height:21px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.gmtl{font-family:'Lexend',sans-serif;font-size:16px;font-weight:800;color:#fff;line-height:1.3;}
+.gmst{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px;}
+button.gmcl{
+  -webkit-appearance:none;appearance:none;
+  margin-left:auto;flex-shrink:0;width:34px;height:34px;
+  background:rgba(255,255,255,.15);border:none;border-radius:8px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:rgba(255,255,255,.2);
+}
+button.gmcl svg{width:17px;height:17px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.gmb{padding:22px 24px 26px;}
+.gmb p{font-size:14px;color:var(--text2);line-height:1.75;}
+
+/* FOOTER */
+.foot{background:linear-gradient(135deg,#0d3f7a,#1a6fc4);padding:36px 24px 32px;text-align:center;position:relative;overflow:hidden;}
+.foot::before{content:'';position:absolute;top:-38px;left:0;right:0;height:38px;background:var(--bg);clip-path:polygon(0 0,100% 0,0 100%);}
+.fi{position:relative;z-index:1;}
+.fb{display:inline-flex;align-items:center;gap:11px;margin-bottom:10px;}
+.fbi{display:flex;align-items:center;justify-content:center;width:42px;height:42px;background:rgba(255,255,255,.15);border-radius:11px;}
+.fbi svg{width:22px;height:22px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.fbn{font-family:'Lexend',sans-serif;font-size:15px;font-weight:900;color:#fff;line-height:1.25;text-align:left;}
+.fbn small{display:block;font-size:11px;font-weight:500;opacity:.7;}
+.finf{color:rgba(255,255,255,.6);font-size:12px;}
+.fsep{display:inline-block;margin:0 8px;opacity:.3;}
+.fco{margin-top:12px;font-family:'Lexend',sans-serif;font-size:15px;font-weight:700;color:#ffd166;display:flex;align-items:center;justify-content:center;gap:7px;}
+.fco svg{width:16px;height:16px;stroke:#ffd166;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hi">
+    <div class="hero-icon-row">
+      <div class="hico"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 5v14M2 9h4M18 9h4M2 15h4M18 15h4M6 9h12M6 15h12"/></svg></div>
+      <div class="hdiv"></div>
+      <div class="hico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="hdiv"></div>
+      <div class="hico"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+    </div>
+    <div class="hero-brand">GYM <span>CÁT BI</span></div>
+    <h1>BẢNG GIÁ &amp; <em>GÓI TẬP</em></h1>
+    <p class="hero-sub">📍 497 CÁT BI, HẢI AN, HẢI PHÒNG</p>
+    <span class="hero-badge">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Áp dụng từ ngày 01 / 05 / 2026
+    </span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- GÓI NỔI BẬT -->
+<div class="sh"><div class="sp"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span class="sp-lbl">Gói Nổi Bật</span></div><div class="sl"></div></div>
+
+<div class="mem-grid mb">
+  <button class="mcard" onclick="pop('m1')">
+    <div class="mct">
+      <div class="mico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="mtier">GÓI NGẮN HẠN<br>1 THÁNG</div>
+      <div class="mpr"><span class="mprice">500K</span><span class="mslash">/tháng</span></div>
+      <span class="mtotal">500.000đ</span>
+    </div>
+    <div class="mcb">
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Gói 1 tháng · 30 ngày</div>
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Vào tập không giới hạn buổi</div>
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>Không áp dụng bảo lưu</div>
+    </div>
+  </button>
+
+  <button class="mcard feat" onclick="pop('m6')">
+    <div class="mct">
+      <span class="mflbl">PHỔ BIẾN NHẤT</span>
+      <div class="mico"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div class="mtier">GÓI ƯU ĐÃI<br>6 THÁNG</div>
+      <div class="mpr"><span class="mprice">425K</span><span class="mslash">/tháng</span></div>
+      <span class="mtotal">2.550.000đ</span>
+    </div>
+    <div class="mcb">
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>180 ngày không gián đoạn</div>
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Bảo lưu tối đa 30 ngày</div>
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Tiết kiệm 75.000đ/tháng</div>
+    </div>
+  </button>
+
+  <button class="mcard grn" onclick="pop('m10')">
+    <div class="mct">
+      <div class="mico"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="mtier">GÓI SIÊU TIẾT KIỆM<br>10 THÁNG</div>
+      <div class="mpr"><span class="mprice">345K</span><span class="mslash">/tháng</span></div>
+      <span class="mtotal">3.450.000đ</span>
+    </div>
+    <div class="mcb">
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>300 ngày dài hạn</div>
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Bảo lưu tối đa 30 ngày</div>
+      <div class="mf"><div class="mfi"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Tiết kiệm 155.000đ/tháng</div>
+    </div>
+  </button>
+</div>
+
+<!-- HỘI VIÊN PHỔ THÔNG -->
+<div class="sh"><div class="sp"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="sp-lbl">Hội Viên Phổ Thông</span></div><div class="sl"></div></div>
+<div class="twrap mb" id="t1">
+  <div class="tscroll" id="s1">
+    <table class="pt">
+      <thead><tr><th>Gói tập</th><th>Thời lượng</th><th>Giá/tháng</th><th>Tổng tiền</th><th>Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pkn">1 Ngày</span></td><td>1 ngày</td><td>—</td><td><div class="pv">50.000đ</div></td><td><span class="nt mu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Không bảo lưu</span></td></tr>
+        <tr><td><span class="pkn">1 Tháng</span></td><td>30 ngày</td><td>500.000đ</td><td><div class="pv">500.000đ</div></td><td><span class="nt mu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Không bảo lưu</span></td></tr>
+        <tr><td><span class="pkn">2 Tháng</span></td><td>60 ngày</td><td>475.000đ</td><td><div class="pv">950.000đ</div></td><td><span class="nt mu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Không bảo lưu</span></td></tr>
+        <tr><td><span class="pkn">3 Tháng</span></td><td>90 ngày</td><td>450.000đ</td><td><div class="pv">1.350.000đ</div></td><td><span class="nt mu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Không bảo lưu</span></td></tr>
+        <tr class="hot"><td><span class="pkn">6 Tháng <span class="rb hot"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>HOT</span></span></td><td>180 ngày</td><td>425.000đ</td><td><div class="pv">2.550.000đ</div></td><td><span class="nt gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Bảo lưu 30 ngày</span></td></tr>
+        <tr class="best"><td><span class="pkn">10 Tháng <span class="rb best"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>BEST</span></span></td><td>300 ngày</td><td>345.000đ</td><td><div class="pv">3.450.000đ</div></td><td><span class="nt gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Bảo lưu 30 ngày</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- HỌC SINH SINH VIÊN -->
+<div class="sh"><div class="sp"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><span class="sp-lbl">Học Sinh – Sinh Viên</span></div><div class="sl"></div><span class="sbadge">Ưu đãi</span></div>
+<div class="twrap" id="t2">
+  <div class="tscroll" id="s2">
+    <table class="pt">
+      <thead><tr><th>Gói tập</th><th>Thời lượng</th><th>Giá/tháng</th><th>Tổng tiền</th><th>Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pkn">1 Tháng</span></td><td>30 ngày</td><td>450.000đ</td><td><div class="pv">450.000đ</div></td><td><span class="nt mu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Không bảo lưu</span></td></tr>
+        <tr class="hot"><td><span class="pkn">3 Tháng <span class="rb hot"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>HOT</span></span></td><td>90 ngày</td><td>400.000đ</td><td><div class="pv">1.200.000đ</div></td><td><span class="nt mu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Không bảo lưu</span></td></tr>
+        <tr class="best"><td><span class="pkn">6 Tháng <span class="rb best"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>BEST</span></span></td><td>180 ngày</td><td>375.000đ</td><td><div class="pv">2.250.000đ</div></td><td><span class="nt gr"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Bảo lưu 30 ngày</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="req mb"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Yêu cầu xuất trình thẻ Học sinh / Sinh viên còn hiệu lực khi đăng ký</div>
+
+<!-- PT -->
+<div class="sh"><div class="sp red"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 5v14M2 9h4M18 9h4M2 15h4M18 15h4M6 9h12M6 15h12"/></svg><span class="sp-lbl">Huấn Luyện Viên (PT)</span></div><div class="sl"></div></div>
+<div class="ptg mb">
+  <div class="ptcard">
+    <div class="pth"><div class="pthi"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="pttl">PT 1–1 (Cá Nhân)</div><div class="ptst">Huấn luyện riêng tư · Tối đa hiệu quả</div></div></div>
+    <div class="ptr"><div><div class="pts">12 Buổi</div><div class="ptsc"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>3 buổi/tuần</div></div><div class="ptpc"><div class="ptpv">3.500.000đ</div><div class="ptpp">~292k/buổi</div></div></div>
+    <div class="ptr"><div><div class="pts">16 Buổi</div><div class="ptsc"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>4 buổi/tuần</div></div><div class="ptpc"><div class="ptpv">4.500.000đ</div><div class="ptpp">~281k/buổi</div></div></div>
+    <div class="ptr"><div><div class="pts">20 Buổi</div><div class="ptsc"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>5 buổi/tuần</div></div><div class="ptpc"><div class="ptpv">5.500.000đ</div><div class="ptpp">~275k/buổi</div></div></div>
+  </div>
+  <div class="ptcard">
+    <div class="pth"><div class="pthi"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="pttl">PT Nhóm (Giá/Người)</div><div class="ptst">Tập cùng bạn bè · Tiết kiệm hơn</div></div></div>
+    <div class="ptr"><div><div class="pts">12 Buổi</div><div class="ptsc"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>3 buổi/tuần</div></div><div class="ptpc"><div class="ptpv">1.800.000đ</div><div class="ptpp">~150k/buổi</div></div></div>
+    <div class="ptr"><div><div class="pts">16 Buổi</div><div class="ptsc"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>4 buổi/tuần</div></div><div class="ptpc"><div class="ptpv">2.400.000đ</div><div class="ptpp">~150k/buổi</div></div></div>
+    <div class="ptr"><div><div class="pts">20 Buổi</div><div class="ptsc"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>5 buổi/tuần</div></div><div class="ptpc"><div class="ptpv">3.000.000đ</div><div class="ptpp">~150k/buổi</div></div></div>
+  </div>
+</div>
+
+<!-- MỤC TIÊU -->
+<div class="sh"><div class="sp red"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span class="sp-lbl">Mục Tiêu Tập Luyện</span></div><div class="sl"></div></div>
+<div class="gg">
+  <button class="gb" onclick="pop('gg1')"><div class="gico"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><span class="glbl">Giảm mỡ – Giảm cân</span><div class="garr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+  <button class="gb" onclick="pop('gg2')"><div class="gico"><svg viewBox="0 0 24 24"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div><span class="glbl">Tăng cân – Tăng cơ</span><div class="garr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+  <button class="gb" onclick="pop('gg3')"><div class="gico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><span class="glbl">Cải thiện hình thể</span><div class="garr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+  <button class="gb" onclick="pop('gg4')"><div class="gico"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><span class="glbl">Tăng thể lực – Phục hồi</span><div class="garr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+</div>
+</div><!-- end content -->
+
+<!-- FOOTER -->
+<div class="foot"><div class="fi">
+  <div class="fb"><div class="fbi"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 5v14M2 9h4M18 9h4M2 15h4M18 15h4M6 9h12M6 15h12"/></svg></div><div class="fbn">GYM – 497 CÁT BI<small>HẢI AN · HẢI PHÒNG</small></div></div>
+  <div class="finf">Giá đã bao gồm thuế<span class="fsep">·</span>Liên hệ lễ tân để biết thêm<span class="fsep">·</span>Giá có thể thay đổi</div>
+  <div class="fco"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>SDT / ZALO: 0362 900 421</div>
+</div></div>
+
+<!-- ══ POPUPS ══ -->
+<!-- Motiv 1 tháng -->
+<div class="ov" id="m1" onclick="if(event.target===this)cls('m1')">
+  <div class="mpop"><div class="mpbg bl">
+    <span class="msp">⚡</span>
+    <div class="mplbl">Gói 1 Tháng</div>
+    <ul class="mli"><li>Khởi động ngay hôm nay</li><li>Thay đổi nhỏ – Kết quả thật</li><li>Tạo đà cho hành trình mới</li></ul>
+    <button class="mcb" onclick="cls('m1')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Bắt đầu thôi!</button>
+  </div></div>
+</div>
+
+<!-- Motiv 6 tháng -->
+<div class="ov" id="m6" onclick="if(event.target===this)cls('m6')">
+  <div class="mpop"><div class="mpbg or">
+    <span class="msp">🔥</span>
+    <div class="mplbl">Gói 6 Tháng</div>
+    <ul class="mli"><li>Duy trì kỷ luật – Bứt phá rõ rệt</li><li>Cơ thể thay đổi – Thói quen nâng cấp</li><li>Nhìn thấy phiên bản tốt hơn mỗi ngày</li></ul>
+    <button class="mcb" onclick="cls('m6')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cam kết ngay!</button>
+  </div></div>
+</div>
+
+<!-- Motiv 10 tháng -->
+<div class="ov" id="m10" onclick="if(event.target===this)cls('m10')">
+  <div class="mpop"><div class="mpbg gn">
+    <span class="msp">🏆</span>
+    <div class="mplbl">Gói 10 Tháng</div>
+    <ul class="mli"><li>Lột xác toàn diện – Duy trì bền vững</li><li>Không chỉ tập luyện – Đó là phong cách sống</li><li>Đầu tư cho sức khỏe – Giá trị lâu dài</li></ul>
+    <button class="mcb" onclick="cls('m10')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Đầu tư ngay!</button>
+  </div></div>
+</div>
+
+<!-- Goal 1 -->
+<div class="ov" id="gg1" onclick="if(event.target===this)cls('gg1')">
+  <div class="gmod">
+    <div class="gmh"><div class="gmhi"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div><div class="gmtl">Giảm mỡ – Giảm cân</div><div class="gmst">Đốt mỡ khoa học · Vóc dáng bền vững</div></div><button class="gmcl" onclick="cls('gg1')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="gmb"><p>Xây dựng chương trình tập luyện khoa học kết hợp chế độ dinh dưỡng hợp lý nhằm tối ưu đốt mỡ, giảm cân an toàn, duy trì vóc dáng lâu dài mà không ảnh hưởng đến sức khỏe.</p></div>
+  </div>
+</div>
+
+<!-- Goal 2 -->
+<div class="ov" id="gg2" onclick="if(event.target===this)cls('gg2')">
+  <div class="gmod">
+    <div class="gmh"><div class="gmhi"><svg viewBox="0 0 24 24"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div><div><div class="gmtl">Tăng cân – Tăng cơ</div><div class="gmst">Phát triển cơ bắp · Lành mạnh</div></div><button class="gmcl" onclick="cls('gg2')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="gmb"><p>Thiết kế lộ trình tập trung phát triển khối lượng cơ bắp, cải thiện cân nặng một cách lành mạnh thông qua các bài tập chuyên sâu và chế độ ăn giàu dinh dưỡng, phù hợp thể trạng.</p></div>
+  </div>
+</div>
+
+<!-- Goal 3 -->
+<div class="ov" id="gg3" onclick="if(event.target===this)cls('gg3')">
+  <div class="gmod">
+    <div class="gmh"><div class="gmhi"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div><div class="gmtl">Cải thiện hình thể</div><div class="gmst">Cân đối · Săn chắc · Thẩm mỹ</div></div><button class="gmcl" onclick="cls('gg3')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="gmb"><p>Định hình vóc dáng cân đối, săn chắc và thẩm mỹ hơn thông qua các bài tập cá nhân hóa, tập trung vào từng nhóm cơ yếu hoặc mất cân đối.</p></div>
+  </div>
+</div>
+
+<!-- Goal 4 -->
+<div class="ov" id="gg4" onclick="if(event.target===this)cls('gg4')">
+  <div class="gmod">
+    <div class="gmh"><div class="gmhi"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="gmtl">Tăng thể lực – Phục hồi</div><div class="gmst">Sức bền · Tim mạch · Linh hoạt</div></div><button class="gmcl" onclick="cls('gg4')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="gmb"><p>Nâng cao sức bền, cải thiện hệ tim mạch và hỗ trợ phục hồi thể trạng sau chấn thương hoặc thời gian dài ít vận động, giúp cơ thể khỏe mạnh và linh hoạt hơn trong sinh hoạt hàng ngày.</p></div>
+  </div>
+</div>
+
+<script>
+/* ── POPUP: visibility+opacity — hoạt động với file:// iOS ── */
+function pop(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.add('on');
+}
+function cls(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.remove('on');
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.ov.on').forEach(function(el) { el.classList.remove('on'); });
+  }
+});
+
+/* ── AUTO-SCROLL: polling mỗi 400ms — ổn định nhất với iOS file:// ── */
+(function () {
+  var tables = [
+    { el: document.getElementById('s1'), wrap: document.getElementById('t1'), state: 0, raf: null, timer: null },
+    { el: document.getElementById('s2'), wrap: document.getElementById('t2'), state: 0, raf: null, timer: null }
+  ];
+
+  /* state: 0=idle, 1=animating, 2=done */
+
+  function smoothRight(t) {
+    if (t.raf) cancelAnimationFrame(t.raf);
+    var el = t.el;
+    var target = el.scrollWidth - el.clientWidth;
+    if (target <= 0) { t.state = 2; return; }
+    var start = el.scrollLeft;
+    var dist = target - start;
+    var dur = 2200;
+    var t0 = null;
+    t.state = 1;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var e = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2;
+      el.scrollLeft = start + dist * e;
+      if (p < 1) { t.raf = requestAnimationFrame(step); }
+      else { t.raf = null; t.state = 2; }
+    }
+    t.raf = requestAnimationFrame(step);
+  }
+
+  function reset(t) {
+    if (t.raf) { cancelAnimationFrame(t.raf); t.raf = null; }
+    if (t.timer) { clearTimeout(t.timer); t.timer = null; }
+    t.el.scrollLeft = 0;
+    t.state = 0;
+  }
+
+  /* Dừng khi user chạm tay vào bảng */
+  tables.forEach(function(t) {
+    t.el.addEventListener('touchstart', function() {
+      if (t.raf) { cancelAnimationFrame(t.raf); t.raf = null; }
+      t.state = 2; /* đánh dấu done để không restart */
+    }, { passive: true });
+  });
+
+  var wasIn = [false, false];
+
+  function check() {
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    tables.forEach(function(t, i) {
+      var r = t.wrap.getBoundingClientRect();
+      /* coi là "trong màn hình" nếu ít nhất 25% của wrap visible */
+      var vis = (Math.min(r.bottom, vh) - Math.max(r.top, 0)) / r.height;
+      var inNow = vis >= 0.25;
+
+      if (inNow && !wasIn[i] && t.state === 0) {
+        /* vừa vào viewport */
+        t.timer = setTimeout(function() { smoothRight(t); }, 300);
+      }
+      if (!inNow && wasIn[i]) {
+        /* ra khỏi viewport → reset để lần sau vào lại sẽ cuộn lại */
+        reset(t);
+      }
+      wasIn[i] = inNow;
+    });
+  }
+
+  /* Polling 350ms — đơn giản và đáng tin cậy nhất trên iOS Safari file:// */
+  setInterval(check, 350);
+  setTimeout(check, 500);
+})();
+</script>
+</body>
+</html>
