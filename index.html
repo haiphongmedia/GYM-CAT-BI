@@ -17,7 +17,7 @@
   --sh-md:0 6px 32px rgba(26,111,196,.16);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;padding-bottom:80px;}
 
 /* HERO */
 .hero{background:linear-gradient(135deg,#0d3f7a 0%,#1a6fc4 45%,#2893e8 100%);padding:48px 24px 72px;position:relative;overflow:hidden;text-align:center;}
@@ -52,7 +52,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .mem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:48px;}
 @media(max-width:660px){.mem-grid{grid-template-columns:1fr;}}
 
-/* KEY FIX: <button> reset hoàn toàn */
 button.mcard{
   -webkit-appearance:none;appearance:none;
   background:var(--surface);border:1.5px solid var(--border);
@@ -139,7 +138,7 @@ button.mcard.grn .mfi svg{stroke:#16a34a;}
 .ptpv{font-family:'Lexend',sans-serif;font-size:17px;font-weight:800;color:var(--blue-deep);letter-spacing:-0.5px;}
 .ptpp{font-size:11px;color:var(--text3);margin-top:2px;}
 
-/* GOALS — <button> thực sự */
+/* GOALS */
 .gg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
 @media(max-width:480px){.gg{grid-template-columns:1fr;}}
 button.gb{
@@ -162,26 +161,20 @@ button.gb:active{background:#fff5f5;border-color:#e84040;}
 .req{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:12px;color:var(--teal);font-weight:500;padding:10px 16px;background:var(--teal-light);border-left:3px solid var(--teal);border-radius:0 9px 9px 0;}
 .req svg{width:15px;height:15px;stroke:var(--teal);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 
-/* ══════════════════════════════════════
-   POPUP — QUAN TRỌNG:
-   Dùng visibility+opacity thay vì display:none
-   vì iOS Safari xử lý visibility tốt hơn display
-   khi mở file local
-══════════════════════════════════════ */
+/* POPUP */
 .ov{
   position:fixed;top:0;left:0;right:0;bottom:0;
   z-index:9999;
   background:rgba(10,30,60,.62);
-  display:flex;                        /* LUÔN flex, không toggle display */
+  display:flex;
   align-items:center;justify-content:center;
   padding:20px;
-  visibility:hidden;                   /* ẩn bằng visibility */
+  visibility:hidden;
   opacity:0;
   pointer-events:none;
   transition:opacity .25s,visibility .25s;
   -webkit-transition:opacity .25s,visibility .25s;
 }
-/* Khi mở: chỉ thêm class "on" */
 .ov.on{
   visibility:visible;
   opacity:1;
@@ -228,6 +221,184 @@ button.gmcl{
 button.gmcl svg{width:17px;height:17px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 .gmb{padding:22px 24px 26px;}
 .gmb p{font-size:14px;color:var(--text2);line-height:1.75;}
+
+/* ══ ZALO FLOATING BUTTON ══ */
+.zalo-fab{
+  position:fixed;
+  bottom:88px;right:16px;
+  z-index:9000;
+}
+a.zalo-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:56px;height:56px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 4px 18px rgba(0,104,255,.35),0 1px 6px rgba(0,0,0,.15);
+  text-decoration:none;
+  -webkit-tap-highlight-color:rgba(0,104,255,.2);
+  transition:transform .15s,box-shadow .15s;
+}
+a.zalo-btn:active{transform:scale(.93);}
+a.zalo-btn img{width:30px;height:30px;border-radius:50%;}
+.zalo-badge{
+  position:absolute;top:-3px;right:-3px;
+  width:16px;height:16px;
+  background:#ff3b30;
+  border-radius:50%;
+  border:2px solid #fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Lexend',sans-serif;font-size:8px;font-weight:800;color:#fff;
+  line-height:1;
+}
+@keyframes zalo-shake{
+  0%,100%{transform:rotate(0deg);}
+  10%{transform:rotate(-12deg);}
+  20%{transform:rotate(12deg);}
+  30%{transform:rotate(-10deg);}
+  40%{transform:rotate(10deg);}
+  50%{transform:rotate(-6deg);}
+  60%{transform:rotate(6deg);}
+  70%{transform:rotate(-3deg);}
+  80%{transform:rotate(3deg);}
+  90%{transform:rotate(0deg);}
+}
+.zalo-fab.shaking a.zalo-btn{animation:zalo-shake .7s ease;}
+
+/* ══ HOURS FLOATING BUTTON ══ */
+.hours-fab{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:8888;
+  display:flex;
+  justify-content:center;
+  padding:0 16px 16px;
+  pointer-events:none;
+}
+button.hours-btn{
+  -webkit-appearance:none;appearance:none;
+  pointer-events:auto;
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#0d3f7a,#1a6fc4,#2893e8);
+  border:2px solid rgba(255,255,255,.25);
+  box-shadow:0 8px 32px rgba(10,40,100,.38),0 2px 8px rgba(10,40,100,.22);
+  border-radius:99px;
+  padding:13px 28px 13px 20px;
+  cursor:pointer;font-family:'Lexend',sans-serif;
+  color:#fff;font-size:14px;font-weight:700;letter-spacing:.5px;
+  white-space:nowrap;
+  transition:transform .15s,box-shadow .15s;
+  -webkit-tap-highlight-color:rgba(255,255,255,.15);
+  max-width:420px;width:100%;justify-content:center;
+}
+button.hours-btn:active{transform:scale(.97);}
+.hours-btn-icon{display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:rgba(255,255,255,.18);border-radius:50%;flex-shrink:0;}
+.hours-btn-icon svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.hours-btn-dot{width:13px;height:13px;background:#4ade80;border-radius:50%;box-shadow:0 0 0 3px rgba(74,222,128,.35),0 0 10px rgba(74,222,128,.5);flex-shrink:0;animation:pulse-dot 1.6s infinite;}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 3px rgba(74,222,128,.35),0 0 10px rgba(74,222,128,.5);transform:scale(1);}50%{box-shadow:0 0 0 7px rgba(74,222,128,.12),0 0 18px rgba(74,222,128,.35);transform:scale(1.15);}}
+
+/* ══ HOURS POPUP ══ */
+.hours-pop{
+  background:#fff;
+  border-radius:24px 24px 20px 20px;
+  max-width:520px;
+  width:100%;
+  max-height:88vh;
+  overflow-y:auto;
+  box-shadow:0 24px 64px rgba(0,0,0,.32);
+  transform:translateY(30px);
+  transition:transform .32s cubic-bezier(.22,.68,0,1.2);
+  -webkit-transition:transform .32s cubic-bezier(.22,.68,0,1.2);
+}
+.ov.on .hours-pop{transform:translateY(0);}
+
+/* Hours popup header */
+.hph{
+  background:linear-gradient(135deg,#0d3f7a,#1a6fc4 55%,#2893e8);
+  padding:24px 22px 20px;
+  border-radius:24px 24px 0 0;
+  position:relative;
+}
+.hph-top{display:flex;align-items:center;gap:12px;margin-bottom:4px;}
+.hph-ico{width:44px;height:44px;background:rgba(255,255,255,.18);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hph-ico svg{width:22px;height:22px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.hph-title{font-family:'Lexend',sans-serif;font-size:18px;font-weight:800;color:#fff;}
+.hph-sub{font-size:12px;color:rgba(255,255,255,.65);margin-top:2px;}
+button.hph-cl{
+  -webkit-appearance:none;appearance:none;
+  position:absolute;top:18px;right:18px;
+  width:34px;height:34px;background:rgba(255,255,255,.15);
+  border:none;border-radius:9px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+button.hph-cl svg{width:17px;height:17px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Status bar in header */
+.hph-status{display:flex;align-items:center;gap:8px;margin-top:14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:7px 16px;width:fit-content;}
+.hph-status-dot{width:8px;height:8px;background:#4ade80;border-radius:50%;animation:pulse-dot 2s infinite;flex-shrink:0;}
+.hph-status-txt{font-family:'Lexend',sans-serif;font-size:11px;font-weight:700;color:#fff;letter-spacing:.5px;}
+
+/* Tabs */
+.hptabs{display:flex;gap:0;border-bottom:2px solid var(--border);background:#f8fbff;}
+button.hptab{
+  -webkit-appearance:none;appearance:none;
+  flex:1;padding:14px 8px;border:none;background:transparent;
+  font-family:'Lexend',sans-serif;font-size:12px;font-weight:700;
+  color:var(--text3);cursor:pointer;letter-spacing:.5px;
+  border-bottom:2.5px solid transparent;margin-bottom:-2px;
+  transition:color .2s,border-color .2s;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+button.hptab.active{color:var(--blue);border-bottom-color:var(--blue);}
+button.hptab svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Tab content */
+.hptab-content{padding:20px 20px 24px;}
+.hptab-panel{display:none;}
+.hptab-panel.active{display:block;}
+
+/* GYM schedule grid */
+.gym-grid{display:grid;grid-template-columns:80px repeat(7,1fr);gap:0;border-radius:12px;overflow:hidden;border:1.5px solid var(--border);}
+.gym-gh{background:linear-gradient(to bottom,#e4f0fc,#eef6fd);padding:10px 6px;text-align:center;font-family:'Lexend',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);border-right:1px solid var(--border);border-bottom:1.5px solid var(--border);}
+.gym-gh:last-child{border-right:none;}
+.gym-gh.sun{color:#c0392b;background:linear-gradient(to bottom,#fce4e4,#fef0f0);}
+.gym-lbl{background:var(--blue-pale);padding:10px 8px;font-family:'Lexend',sans-serif;font-size:11px;font-weight:700;color:var(--text2);border-right:1.5px solid var(--border);border-bottom:1px solid #eef4fc;display:flex;align-items:center;}
+.gym-lbl:last-of-type{border-bottom:none;}
+.gym-cell{padding:10px 4px;text-align:center;border-right:1px solid #eef4fc;border-bottom:1px solid #eef4fc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.gym-cell:last-child{border-right:none;}
+.gym-row-last .gym-cell,.gym-row-last .gym-lbl{border-bottom:none;}
+.gym-time{font-family:'Lexend',sans-serif;font-size:13px;font-weight:800;color:var(--blue-deep);}
+.gym-time.closed{color:#c0392b;font-size:12px;}
+.gym-unit{font-size:9px;color:var(--text3);font-weight:500;}
+.gym-cell.sun-col .gym-time{color:#c0392b;}
+
+/* AEROBIC schedule */
+.aero-section{margin-bottom:16px;}
+.aero-section-title{font-family:'Lexend',sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue);padding:8px 14px;background:var(--blue-pale);border-radius:8px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.aero-section-title svg{width:12px;height:12px;stroke:var(--blue);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+.aero-grid{display:grid;grid-template-columns:64px repeat(7,1fr);gap:0;border-radius:12px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:12px;}
+.aero-gh{background:linear-gradient(to bottom,#e4f0fc,#eef6fd);padding:9px 4px;text-align:center;font-family:'Lexend',sans-serif;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--blue);border-right:1px solid var(--border);border-bottom:1.5px solid var(--border);}
+.aero-gh:last-child{border-right:none;}
+.aero-gh.sun{color:#c0392b;background:linear-gradient(to bottom,#fce4e4,#fef0f0);}
+.aero-lbl{background:linear-gradient(to right,#fce8e8,#fff5f5);padding:9px 6px;font-family:'Lexend',sans-serif;font-size:10px;font-weight:700;color:#c0392b;border-right:1.5px solid var(--border);border-bottom:1px solid #fce8e8;display:flex;align-items:center;justify-content:center;}
+.aero-lbl.am{background:linear-gradient(to right,#fffbf0,#fffdf7);}
+.aero-lbl.am .aero-lbl-inner{color:var(--orange);}
+.aero-lbl-inner{writing-mode:horizontal-tb;font-size:10px;font-weight:700;}
+.aero-cell{padding:7px 3px;text-align:center;border-right:1px solid #eef4fc;border-bottom:1px solid #eef4fc;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.aero-cell:last-child{border-right:none;}
+.aero-row-last .aero-cell,.aero-row-last .aero-lbl{border-bottom:none;}
+.aero-slot{background:linear-gradient(135deg,#e4f0fc,#ddeeff);border-radius:5px;padding:3px 2px;width:100%;}
+.aero-slot-time{font-family:'Lexend',sans-serif;font-size:9px;font-weight:800;color:var(--blue-deep);line-height:1.3;}
+.aero-slot.off{background:linear-gradient(135deg,#fce8e8,#ffe0e0);}
+.aero-slot.off .aero-slot-time{color:#c0392b;}
+
+/* Legend */
+.hours-legend{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 20px;background:var(--blue-pale);border-top:1.5px solid var(--border);border-radius:0 0 20px 20px;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);font-weight:500;}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+.leg-dot.open{background:var(--blue-light);border:1.5px solid var(--blue);}
+.leg-dot.off{background:#fce8e8;border:1.5px solid #f09595;}
+.leg-dot.gym{background:linear-gradient(135deg,#e4f0fc,#ddeeff);}
 
 /* FOOTER */
 .foot{background:linear-gradient(135deg,#0d3f7a,#1a6fc4);padding:36px 24px 32px;text-align:center;position:relative;overflow:hidden;}
@@ -375,7 +546,7 @@ button.gmcl svg{width:17px;height:17px;stroke:#fff;stroke-width:2.5;fill:none;st
   <button class="gb" onclick="pop('gg3')"><div class="gico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><span class="glbl">Cải thiện hình thể</span><div class="garr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
   <button class="gb" onclick="pop('gg4')"><div class="gico"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><span class="glbl">Tăng thể lực – Phục hồi</span><div class="garr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
 </div>
-</div><!-- end content -->
+</div>
 
 <!-- FOOTER -->
 <div class="foot"><div class="fi">
@@ -383,6 +554,31 @@ button.gmcl svg{width:17px;height:17px;stroke:#fff;stroke-width:2.5;fill:none;st
   <div class="finf">Giá đã bao gồm thuế<span class="fsep">·</span>Liên hệ lễ tân để biết thêm<span class="fsep">·</span>Giá có thể thay đổi</div>
   <div class="fco"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>SDT / ZALO: 0362 900 421</div>
 </div></div>
+
+<!-- ══ ZALO FLOATING BUTTON ══ -->
+<div class="zalo-fab" id="zalo-fab">
+  <a class="zalo-btn" href="https://zalo.me/0362900421" target="_blank" rel="noopener">
+    <svg viewBox="0 0 56 56" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="28" fill="#0068ff"/>
+      <text x="28" y="35" text-anchor="middle"
+        font-family="Lexend, Arial Black, sans-serif"
+        font-size="17" font-weight="900"
+        fill="#fff" letter-spacing="0.5">Zalo</text>
+    </svg>
+  </a>
+  <div class="zalo-badge">1</div>
+</div>
+
+<!-- ══ FLOATING HOURS BUTTON ══ -->
+<div class="hours-fab">
+  <button class="hours-btn" onclick="pop('hours-popup')">
+    <div class="hours-btn-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    GIỜ MỞ CỬA &amp; LỊCH AEROBIC
+    <div class="hours-btn-dot"></div>
+  </button>
+</div>
 
 <!-- ══ POPUPS ══ -->
 <!-- Motiv 1 tháng -->
@@ -447,8 +643,201 @@ button.gmcl svg{width:17px;height:17px;stroke:#fff;stroke-width:2.5;fill:none;st
   </div>
 </div>
 
+<!-- ══ HOURS POPUP ══ -->
+<div class="ov" id="hours-popup" onclick="if(event.target===this)cls('hours-popup')">
+  <div class="hours-pop">
+
+    <!-- Header -->
+    <div class="hph">
+      <div class="hph-top">
+        <div class="hph-ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="hph-title">Lịch Hoạt Động</div>
+          <div class="hph-sub">GYM CÁT BI – 497 Cát Bi, Hải An</div>
+        </div>
+      </div>
+      <div class="hph-status">
+        <div class="hph-status-dot"></div>
+        <div class="hph-status-txt">ĐANG HOẠT ĐỘNG</div>
+      </div>
+      <button class="hph-cl" onclick="cls('hours-popup')">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="hptabs">
+      <button class="hptab active" id="tab-gym" onclick="switchTab('gym')">
+        <svg viewBox="0 0 24 24"><path d="M6 5v14M18 5v14M2 9h4M18 9h4M2 15h4M18 15h4M6 9h12M6 15h12"/></svg>
+        GYM
+      </button>
+      <button class="hptab" id="tab-aerobic" onclick="switchTab('aerobic')">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        AEROBIC
+      </button>
+    </div>
+
+    <!-- GYM Tab -->
+    <div class="hptab-panel active" id="panel-gym">
+      <div class="hptab-content">
+
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;">
+          <div class="gym-grid" style="min-width:360px;">
+            <!-- Header row -->
+            <div class="gym-gh" style="background:linear-gradient(to bottom,#d0e8f8,#e4f0fc);">
+              <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--blue);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;display:block;margin:0 auto 2px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="gym-gh">T2</div>
+            <div class="gym-gh">T3</div>
+            <div class="gym-gh">T4</div>
+            <div class="gym-gh">T5</div>
+            <div class="gym-gh">T6</div>
+            <div class="gym-gh">T7</div>
+            <div class="gym-gh sun">CN</div>
+
+            <!-- Mở cửa row -->
+            <div class="gym-lbl">Mở cửa</div>
+            <div class="gym-cell"><span class="gym-time">5<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell"><span class="gym-time">5<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell"><span class="gym-time">5<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell"><span class="gym-time">5<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell"><span class="gym-time">5<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell"><span class="gym-time">5<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell sun-col"><span class="gym-time">14<span class="gym-unit">h</span></span></div>
+
+            <!-- Đóng cửa row -->
+            <div class="gym-lbl gym-row-last">Đóng cửa</div>
+            <div class="gym-cell gym-row-last"><span class="gym-time">21<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell gym-row-last"><span class="gym-time">21<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell gym-row-last"><span class="gym-time">21<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell gym-row-last"><span class="gym-time">21<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell gym-row-last"><span class="gym-time">21<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell gym-row-last"><span class="gym-time">21<span class="gym-unit">h</span></span></div>
+            <div class="gym-cell gym-row-last sun-col"><span class="gym-time">20<span class="gym-unit">h</span></span></div>
+          </div>
+        </div>
+
+        <!-- Note cards -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--blue-pale);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center;">
+            <div style="font-family:'Lexend',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);font-weight:800;margin-bottom:6px;">Thứ 2 – Thứ 7</div>
+            <div style="font-family:'Lexend',sans-serif;font-size:22px;font-weight:900;color:var(--blue-deep);letter-spacing:-0.5px;">5h – 21h</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">16 tiếng/ngày</div>
+          </div>
+          <div style="background:#fff8f0;border:1.5px solid var(--orange-border);border-radius:12px;padding:14px 16px;text-align:center;">
+            <div style="font-family:'Lexend',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);font-weight:800;margin-bottom:6px;">Chủ Nhật</div>
+            <div style="font-family:'Lexend',sans-serif;font-size:22px;font-weight:900;color:#c05000;letter-spacing:-0.5px;">14h – 20h</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">6 tiếng/ngày</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- AEROBIC Tab -->
+    <div class="hptab-panel" id="panel-aerobic">
+      <div class="hptab-content">
+
+        <!-- Buổi Sáng -->
+        <div class="aero-section">
+          <div class="aero-section-title">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            Buổi Sáng
+          </div>
+          <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+            <div class="aero-grid" style="min-width:320px;">
+              <div class="aero-gh" style="background:linear-gradient(to bottom,#d0e8f8,#e4f0fc);">
+                <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:var(--blue);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;display:block;margin:0 auto;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="aero-gh">T2</div>
+              <div class="aero-gh">T3</div>
+              <div class="aero-gh">T4</div>
+              <div class="aero-gh">T5</div>
+              <div class="aero-gh">T6</div>
+              <div class="aero-gh">T7</div>
+              <div class="aero-gh sun">CN</div>
+
+              <!-- Slot 5h-6h -->
+              <div class="aero-lbl am" style="border-bottom:1px solid #fff0d0;"><span class="aero-lbl-inner" style="color:var(--orange);font-size:9px;">5–6h</span></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">5h–6h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">5h–6h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">5h–6h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">5h–6h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">5h–6h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">5h–6h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot off"><div class="aero-slot-time">Nghỉ</div></div></div>
+
+              <!-- Slot 6h30-7h30 -->
+              <div class="aero-lbl am aero-row-last" style="border-bottom:none;"><span class="aero-lbl-inner" style="color:var(--orange);font-size:9px;">6:30–7:30h</span></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">6:30–7:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">6:30–7:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">6:30–7:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">6:30–7:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">6:30–7:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">6:30–7:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot off"><div class="aero-slot-time">Nghỉ</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buổi Chiều -->
+        <div class="aero-section">
+          <div class="aero-section-title">
+            <svg viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>
+            Buổi Chiều
+          </div>
+          <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+            <div class="aero-grid" style="min-width:320px;">
+              <div class="aero-gh" style="background:linear-gradient(to bottom,#d0e8f8,#e4f0fc);">
+                <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:var(--blue);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;display:block;margin:0 auto;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="aero-gh">T2</div>
+              <div class="aero-gh">T3</div>
+              <div class="aero-gh">T4</div>
+              <div class="aero-gh">T5</div>
+              <div class="aero-gh">T6</div>
+              <div class="aero-gh">T7</div>
+              <div class="aero-gh sun">CN</div>
+
+              <!-- Slot 15h-16h -->
+              <div class="aero-lbl" style="background:linear-gradient(to right,#e8f0fe,#f0f5ff);border-bottom:1px solid #e0e8f8;"><span class="aero-lbl-inner" style="color:var(--blue);font-size:9px;">15–16h</span></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">15h–16h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">15h–16h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">15h–16h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">15h–16h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">15h–16h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot"><div class="aero-slot-time">15h–16h</div></div></div>
+              <div class="aero-cell"><div class="aero-slot off"><div class="aero-slot-time">Nghỉ</div></div></div>
+
+              <!-- Slot 17h30-18h30 -->
+              <div class="aero-lbl aero-row-last" style="background:linear-gradient(to right,#e8f0fe,#f0f5ff);border-bottom:none;"><span class="aero-lbl-inner" style="color:var(--blue);font-size:9px;">17:30–18:30h</span></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">17:30–18:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">17:30–18:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">17:30–18:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">17:30–18:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">17:30–18:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot"><div class="aero-slot-time">17:30–18:30h</div></div></div>
+              <div class="aero-cell aero-row-last"><div class="aero-slot off"><div class="aero-slot-time">Nghỉ</div></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="hours-legend">
+      <div class="leg-item"><div class="leg-dot open"></div>Lịch tập</div>
+      <div class="leg-item"><div class="leg-dot off"></div>Nghỉ / Khác giờ</div>
+      <div style="margin-left:auto;font-size:11px;color:var(--text3);">Aerobic nghỉ Chủ nhật</div>
+    </div>
+
+  </div>
+</div>
+
 <script>
-/* ── POPUP: visibility+opacity — hoạt động với file:// iOS ── */
 function pop(id) {
   var el = document.getElementById(id);
   if (el) el.classList.add('on');
@@ -463,14 +852,29 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-/* ── AUTO-SCROLL: polling mỗi 400ms — ổn định nhất với iOS file:// ── */
+function switchTab(tab) {
+  document.querySelectorAll('.hptab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.hptab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+}
+
+/* ZALO SHAKE */
+(function(){
+  var fab = document.getElementById('zalo-fab');
+  if(!fab) return;
+  function shake(){
+    fab.classList.add('shaking');
+    setTimeout(function(){ fab.classList.remove('shaking'); }, 700);
+  }
+  setTimeout(shake, 2500);
+  setInterval(shake, 6000);
+})();
 (function () {
   var tables = [
     { el: document.getElementById('s1'), wrap: document.getElementById('t1'), state: 0, raf: null, timer: null },
     { el: document.getElementById('s2'), wrap: document.getElementById('t2'), state: 0, raf: null, timer: null }
   ];
-
-  /* state: 0=idle, 1=animating, 2=done */
 
   function smoothRight(t) {
     if (t.raf) cancelAnimationFrame(t.raf);
@@ -500,11 +904,10 @@ document.addEventListener('keydown', function(e) {
     t.state = 0;
   }
 
-  /* Dừng khi user chạm tay vào bảng */
   tables.forEach(function(t) {
     t.el.addEventListener('touchstart', function() {
       if (t.raf) { cancelAnimationFrame(t.raf); t.raf = null; }
-      t.state = 2; /* đánh dấu done để không restart */
+      t.state = 2;
     }, { passive: true });
   });
 
@@ -513,24 +916,18 @@ document.addEventListener('keydown', function(e) {
   function check() {
     var vh = window.innerHeight || document.documentElement.clientHeight;
     tables.forEach(function(t, i) {
+      if (!t.wrap) return;
       var r = t.wrap.getBoundingClientRect();
-      /* coi là "trong màn hình" nếu ít nhất 25% của wrap visible */
       var vis = (Math.min(r.bottom, vh) - Math.max(r.top, 0)) / r.height;
       var inNow = vis >= 0.25;
-
       if (inNow && !wasIn[i] && t.state === 0) {
-        /* vừa vào viewport */
         t.timer = setTimeout(function() { smoothRight(t); }, 300);
       }
-      if (!inNow && wasIn[i]) {
-        /* ra khỏi viewport → reset để lần sau vào lại sẽ cuộn lại */
-        reset(t);
-      }
+      if (!inNow && wasIn[i]) { reset(t); }
       wasIn[i] = inNow;
     });
   }
 
-  /* Polling 350ms — đơn giản và đáng tin cậy nhất trên iOS Safari file:// */
   setInterval(check, 350);
   setTimeout(check, 500);
 })();
